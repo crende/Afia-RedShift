@@ -51,8 +51,7 @@ the relevant documentation
 * RedShift can only read CSV files from S3 and tables from DynamoDB, files need
 * to be in one format or the other before loading.  You cannot load JSON files directly
 into RedShift, and OLTP datasources need to be first extracted as CSV to import.
-* PK's and FK'S are _informational only_ they aren't enforced or used by
-* RedShift.
+* PK's and FK'S are _informational only_ they aren't enforced or used by RedShift.
 
 #### Other General Limitations
 * all CSV files _must_ have a header row.  If there is not a header included the
