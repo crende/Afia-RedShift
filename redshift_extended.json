@@ -1,0 +1,121 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "EMR Cluster for use in a VPC",
+  "Parameters": {
+    "AllowVersionUpgrade": {
+      "Type": "String",
+      "Description": "Allow minor version upgrades",
+      "Default": "True"
+    },
+    "SnapshotRetentionPeriod": {
+      "Type": "Number",
+      "Description": "period of time to keep snapshots",
+      "Default": "7"
+    },
+    "AvailabilityZone": {
+      "Type": "String",
+      "Description": "AZ to reside in",
+      "Default": "us-east-1c"
+    },
+    "ClusterType": {
+      "Type": "String",
+      "Description": "Single or multi-node",
+      "Default": "multi-node",
+      "AllowedValues": ["single-node","multi-node"]
+    },
+    "DBName": {
+      "Type": "String",
+      "Description": "name of database to create",
+      "Default": "test"
+    },
+    "MasterUser": {
+      "Type": "String",
+      "Description": "Master RedShift Username",
+      "Default": "admin"
+    },
+    "MasterPassword": {
+      "Type": "String",
+      "Description": "Master user password",
+      "Default": "PassyMcPassword1"
+    },
+    "InstanceType": {
+      "Type": "String",
+      "Description": "instance size to use for nodes",
+      "Default": "dc1.large"
+    },
+    "NodeCount": {
+      "Type": "Number",
+      "Description": "number of nodes in cluster",
+      "Default": "2"
+    },
+    "PublicAccess": {
+      "Type": "String",
+      "Description": "to be public or not",
+      "Default": "True",
+      "AllowedValues": ["True","False"]
+    },
+    "VPCSecurityGroups": {
+      "Type": "CommaDelimitedList",
+      "Description": "VPC Security Groups to use",
+      "Default": "sg-6e7bed15"
+    },
+    "VPCSubnetIds": {
+      "Type": "CommaDelimitedList",
+      "Description": "Subnets for the Redshift Cluster",
+      "Default": "subnet-75cf825f"
+    },
+    "VPCId": {
+      "Type": "String",
+      "Description": "VPC To associate the EIP with",
+      "Default": "vpc-3c1abe5b"
+    },
+    "IAMTemplate": {
+      "Type": "String",
+      "Description": "s3 URL for IAM permissions"
+    }
+  },
+  "Resources": {
+    "Redshift": {
+      "Type": "AWS::Redshift::Cluster",
+      "Properties": {
+	"AllowVersionUpgrade": { "Ref": "AllowVersionUpgrade" },
+	"AutomatedSnapshotRetentionPeriod": { "Ref": "SnapshotRetentionPeriod" },
+	"AvailabilityZone": { "Ref": "AvailabilityZone" },
+	"ClusterSubnetGroupName": { "Ref": "RedshiftSubnets" },
+	"ClusterType" : { "Ref": "ClusterType" },
+	"DBName" : { "Ref": "DBName" },
+	"ElasticIp": { "Ref": "RedShiftEIP" },
+	"MasterUsername" : { "Ref": "MasterUser" },
+	"MasterUserPassword" : { "Ref": "MasterPassword" },
+	"NodeType" : { "Ref": "InstanceType" },
+	"NumberOfNodes": { "Ref": "NodeCount" },
+	"PubliclyAccessible": { "Ref": "PublicAccess" },
+	"VpcSecurityGroupIds": { "Ref": "VPCSecurityGroups" }
+      }
+    },
+    "RedshiftSubnets": {
+      "Type": "AWS::Redshift::ClusterSubnetGroup",
+      "Properties": {
+	"Description": "Subnet for the Redshift Cluster",
+	"SubnetIds": { "Ref": "VPCSubnetIds" }
+      }
+    },
+    "RedShiftEIP": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": { "Ref": "VPCId" }
+      }
+    },
+    "IAM": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": { "Ref": "IAMTemplate" },
+        "Tags": []
+      }
+    },
+    "Route53Endpoint": {
+    }
+  },
+  "Outputs": {
+  }
+}
