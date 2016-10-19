@@ -63,14 +63,14 @@ into RedShift, and OLTP datasources need to be first extracted as CSV to import.
 objects nonetheless an alternative naming scheme should be decided upon.
 * every single column _must_ have a header associated with it.
 
-### Why all these Constraints? I long for freedom.  Most of these limitations
-and constraints come from the fact the RedShift is heavily re-tooled to be a
+### Why all these Constraints? I long for freedom.
+Most of these limitations and constraints come from the fact the RedShift is heavily re-tooled to be a
 strictly MPP (Massively Parallel Processing) architecture.  Essentially we are
 making a trade--by reducing functionality and data type support we're able to
 take advantage of RedShifts ability to operate on *extremely large scales*.
 
-### What running on MPP means for indexing remember that RedShift is a cluster.
-There is a master node and slices (other nodes) that the data is distributed
+### What running on MPP means for indexing
+remember that RedShift is a cluster. There is a master node and slices (other nodes) that the data is distributed
 between.  This means that instead of working with PK's and FK's we're going to
 be working with __SORT KEYS__ and __DIST KEYS__.  Our distribution method is how
 data is stored across our cluster, and our sorting method enables us to optimize
