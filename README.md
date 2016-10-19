@@ -22,11 +22,11 @@ get in and fly.
 ### What RedShift is
 
 #### OLAP
-RedShift is built as an On-line AnalyticalProcessing data warehouse.
+RedShift is built as an On-line Analytical Processing data warehouse.
 
 What are some things to consider when utilizing an OLAP database?
 * A relatively low volume of transactions slower query and load times data
-* integrity is given lower priority, it's expected that your OLTP and other sources are what maintains integrity
+* integrity is given lower priority, OLTP and other sources expected to maintain integ.
 * intended for long-running periodic queries: complex / multi-dimensionals large
 * number of joins aggregation in general ideal for ETL procedures
 
