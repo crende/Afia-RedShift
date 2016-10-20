@@ -12,7 +12,6 @@
   * Analyze and ingest sample data sets
   * Planning for the future
 
-## Because I care
 Due to the time scoped to the project we need to be very selective about how we
 spend that time.  I would like to insist that this engagement be used to
 bootstrap Afia with a workable MVP/POC RedShift workflow, and help get developers and analysts familiar with the ecosystem.  Initially, focus should reside primarily on
