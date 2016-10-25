@@ -77,13 +77,13 @@ class RedShiftLoader(object):
     def create_table(self):
         t = Table(self.table, self.Base.metadata, 
             Column('id', Integer, autoincrement=False, nullable=False, primary_key=True),
-            *(Column(x[0], String(60), nullable=True) if x[1].isalpha()
+            *(Column(x[0], String, nullable=True) if x[1].isalpha()
                 else Column(x[0], Date, nullable=True) if self.isdate(x[1])
                 else Column(x[0], DateTime(timezone=False), nullable=True) if self.istime(x[1])
                 else Column(x[0], DateTime(timezone=False), nullable=True) if self.isdatetime(x[1])
                 else Column(x[0], Integer, nullable=True) if x[1].isdigit()
                 else Column(x[0], Float, nullable=True) if self.isfloat(x[1])
-                else Column(x[0], String(60), nullable=True)
+                else Column(x[0], String, nullable=True)
                 for x in zip(self.h, self.f)))
 
         self.Base.metadata.create_all(self.engine, checkfirst=True)
