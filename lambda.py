@@ -40,13 +40,13 @@ class RedShiftLoader(object):
         for x in l:
             try:
                 for y, z in enumerate(x):
-                    if re.match(self.dp, z) and isinstance(parse(z).date(), datetime.date):
+                    if isdate(z):
                         x[y] = parse(z).date()
 
-                    if re.match(self.tp, z) and isinstance(parse(z).time(), datetime.time):
+                    if istime(z):
                         x[y] = parse(z)
 
-                    if re.match(self.dt, z) and isinstance(parse(z), datetime.datetime):
+                    if isdatetime(z):
                         x[y] = parse(z)
 
             except ValueError as e:
@@ -59,7 +59,6 @@ class RedShiftLoader(object):
             return True
 
     def isdate(self, x):
-            p4print(e)
         if re.match(self.dp, x) and isinstance(parse(x).date(), datetime.date):
             return True
 
