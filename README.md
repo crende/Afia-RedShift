@@ -5,7 +5,7 @@
 ## Schedule
 * Day 1:
   * Capturing high-level requirements
-  * discussiong RedShift Ecosystem
+  * discussing RedShift Ecosystem
   * POC demonstration
 * Day 2:
   * Deployment walkthrough
