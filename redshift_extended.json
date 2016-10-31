@@ -69,6 +69,11 @@
       "Description": "VPC To associate the EIP with",
       "Default": "vpc-3c1abe5b"
     },
+	  "SnapshotId": {
+      "Type": "String",
+      "Description": "VPC To associate the EIP with",
+      "Default": "afia-poc-cluster"
+    },
     "IAMTemplate": {
       "Type": "String",
       "Description": "s3 URL for IAM permissions"
@@ -90,7 +95,8 @@
 	"NodeType" : { "Ref": "InstanceType" },
 	"NumberOfNodes": { "Ref": "NodeCount" },
 	"PubliclyAccessible": { "Ref": "PublicAccess" },
-	"VpcSecurityGroupIds": { "Ref": "VPCSecurityGroups" }
+	"VpcSecurityGroupIds": { "Ref": "VPCSecurityGroups" },
+	"SnapshotIdentifier": {"Ref":"SnapshotId"}
       }
     },
     "RedshiftSubnets": {
